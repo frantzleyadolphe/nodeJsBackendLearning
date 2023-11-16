@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 const app = express();
 const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
 
 
 mongoose.connect('mongodb+srv://frantzleyadolphe:VUa8UWJBCNHp17m8@cluster0.t4f9ays.mongodb.net/?retryWrites=true&w=majority',{ useNewUrlParser: true,
@@ -35,6 +36,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
+
 
 
 
