@@ -48,11 +48,14 @@ exports.modifyThing = (req, res, next) => {
   delete thingObject._userId;
   Thing.findOne({_id: req.params.id})
       .then((thing) => {
+        //verify to be a owner of the thing else return status code 200 to frontend
           if (thing.userId != req.auth.userId) {
               res.status(401).json({ message : 'Not authorized'});
           } else {
+            //update thing object on database
               Thing.updateOne({ _id: req.params.id}, { ...thingObject, _id: req.params.id})
               .then(() => res.status(200).json({message : 'Objet modifié!'}))
+              //sending error's message to frontend
               .catch(error => res.status(401).json({ error }));
           }
       })
