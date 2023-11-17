@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require('mongoose');
-mongoose.set('strictQuery', true);
-const app = express();
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
+const path = require('path');
+mongoose.set('strictQuery', true);
+const app = express();
+
 
 
 mongoose.connect('mongodb+srv://frantzleyadolphe:VUa8UWJBCNHp17m8@cluster0.t4f9ays.mongodb.net/?retryWrites=true&w=majority',{ useNewUrlParser: true,
@@ -37,7 +39,7 @@ app.use((req, res, next) => {
 
 app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
-
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 
